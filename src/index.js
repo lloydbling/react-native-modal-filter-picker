@@ -199,15 +199,16 @@ export default class ModalFilterPicker extends Component {
 
     const filter = text.toLowerCase()
 
-    console.log("test")
-
     // apply filter to incoming data
     const filtered = (!filter.length)
       ? options
       : options.filter(({ searchKey, label, key }) => (
         0 <= label.toLowerCase().indexOf(filter) ||
-          (searchKey && 0 <= searchKey.toLowerCase().indexOf(filter))
-      ))
+          // support arrays of searchKey
+          (searchKey && (Array.isArray(searchKey)
+            ? 0 <= searchKey.findIndex(a => 0 <= a.toLowerCase().indexOf(filter))
+            : 0 <= searchKey.toLowerCase().indexOf(filter))
+    )))
 
     this.setState({
       filter: text.toLowerCase(),
