@@ -199,6 +199,8 @@ export default class ModalFilterPicker extends Component {
 
     const filter = text.toLowerCase()
 
+    console.log("test")
+
     // apply filter to incoming data
     const filtered = (!filter.length)
       ? options
